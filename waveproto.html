@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>wave proto</title>
+    </head>
+    <body>
+        <style>
+            body{
+                height: 90vh;
+            }
+            #layer1{
+                background: white;
+                border-radius: 50%;
+                width: 100px;
+                height: 100px;
+                z-index: 1;
+                position: relative;
+                overflow: hidden;
+            }
+            #layer2{
+                background: #86b9c0;
+                border-radius: 50%;
+                height: 80px;
+                width: 80px;
+                z-index: 2;
+                position: absolute;
+                top: -10px;
+                left: 38px;
+            }
+            #layer3{
+                background: #abeef7;
+                width: 100px;
+                height: 40px;
+                z-index: 3;
+                position: absolute;
+                bottom: 0;
+            }
+            #layer4{
+                background: #abeef7;
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                z-index: 4;
+                position: absolute;
+                top: -10px;
+                left: -15%;
+            }
+            #layer5{
+                background: #86b9c0;
+                border-radius: 50%;
+                height: 80px;
+                width: 80px;
+                z-index: 4;
+                position: absolute;
+                top: -70px;
+                left: 38px;
+            }
+            #layer6{
+                background: inherit;
+                width: 100px;
+                height: 40px;
+                z-index: 3;
+                position: absolute;
+                bottom: 0;
+                overflow: hidden;
+            }
+            #layer7{
+                background: radial-gradient(rgba(0, 0, 0, 0), #c6e8ff);
+                opacity: .6;
+                border-radius: 50%;
+                height: 100px;
+                width: 100px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                z-index: 5;
+            }
+            #layer8{
+                height: 25px;
+                width: 5px;
+                border-radius: 100%;
+                position: absolute;
+                top: 15%;
+                left: 15%;
+                transform: rotate(35deg);
+                background: white;
+                z-index: 6;
+            }
+            #layer9{
+                height: 5px;
+                width: 3px;
+                border-radius: 100%;
+                position: absolute;
+                top: 10%;
+                left: 27%;
+                transform: rotate(40deg);
+                background: white;
+                z-index: 6;
+            }
+            
+        </style>
+
+        <div id="layer1">
+            <div id="layer3">
+                <div id="layer2"></div>
+                <div id="layer4"></div>
+                <div id="layer6">
+                    <div id="layer5"></div>
+                </div>
+            </div>
+            <div id="layer8"></div>
+            <div id="layer9"></div>
+            <div id="layer7"></div>
+        </div>
+    </body>
+</html>

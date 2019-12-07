@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>wave</title>
+    </head>
+    <body>
+        <style>
+            #layer1{
+                height: 100px;
+                width: 100px;
+                border-radius: 50%;
+                background: inherit;
+                position: relative;
+            }
+            #layer2{
+                height: 90px;
+                width: 90px;
+                border-radius: 50%;
+                overflow: hidden;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                background: inherit;
+                z-index: 1;
+            }
+            #layer3{
+                height: 100px;
+                width: 100px;
+                border-radius: 50%;
+                background: radial-gradient(rgba(0, 0, 0, 0), #c6e8ff);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                z-index: 9999;
+            }
+            #layer4{
+                height: 98px;
+                width: 98px;
+                border-radius: 50%;
+                position: absolute;
+                top: 50%;
+                left: 47%;
+                transform: translate(-50%,-50%);
+                border-right: rgba(214, 232, 247, 0.308) solid 10px;
+                box-sizing: border-box;
+                z-index: 9999;
+            }
+        </style>
+
+        <div id="layer1">
+            <div id="layer2">
+                <canvas height="100" width="100"></canvas>
+            </div>
+            <div id="layer3"></div>
+            <div id="layer4"></div>
+        </div>
+
+        <script>
+            const canvas = document.querySelector('canvas');
+            const ctx = canvas.getContext('2d');
+            let salt = 180;
+
+            let sinWave = () => {
+                ctx.clearRect(0,0,100,100);
+                let sinArray = [];
+                for(let i = 0; i <= 100; i++){
+                    let tmp = Math.sin((i * 4 - salt) * Math.PI / 180);
+                    sinArray.push(tmp);
+                }
+                ctx.beginPath();
+                ctx.moveTo(0,100);
+                for(let i = 0; i <= 100; i++){
+                    ctx.lineTo(i, sinArray[i] * 7 + 50);
+                }
+                ctx.lineTo(100,100);
+                ctx.fillStyle = '#86b9c0';
+                ctx.fill();
+
+                let cosArray = [];
+                for(let i = 0; i <= 600; i++){
+                    let tmp = Math.cos((i * 4 + salt) * Math.PI / 180);
+                    cosArray.push(tmp);
+                }
+                ctx.beginPath();
+                ctx.moveTo(0,100)
+                for(let i = 0; i <= 100; i++){
+                    ctx.lineTo(i, cosArray[i + 110] * 7 + 50);
+                }
+                ctx.lineTo(100,100);
+                ctx.fillStyle = '#abeef7';
+                ctx.fill();
+
+                salt++;
+                setTimeout(sinWave, 1);
+            }
+            sinWave();
+        </script>
+    </body>
+</html>
