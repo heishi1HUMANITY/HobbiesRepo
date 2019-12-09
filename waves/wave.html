@@ -62,7 +62,7 @@
         <script>
             const canvas = document.querySelector('canvas');
             const ctx = canvas.getContext('2d');
-            let salt = 180;
+            let salt = 0;
 
             let sinWave = () => {
                 ctx.clearRect(0,0,100,100);
@@ -81,14 +81,14 @@
                 ctx.fill();
 
                 let cosArray = [];
-                for(let i = 0; i <= 600; i++){
-                    let tmp = Math.cos((i * 4 + salt) * Math.PI / 180);
+                for(let i = 0; i <= 100; i++){
+                    let tmp = Math.cos((i * 4 + salt + 100) * Math.PI / 180);
                     cosArray.push(tmp);
                 }
                 ctx.beginPath();
                 ctx.moveTo(0,100)
                 for(let i = 0; i <= 100; i++){
-                    ctx.lineTo(i, cosArray[i + 110] * 7 + 50);
+                    ctx.lineTo(i, cosArray[i] * 7 + 50);
                 }
                 ctx.lineTo(100,100);
                 ctx.fillStyle = '#abeef7';

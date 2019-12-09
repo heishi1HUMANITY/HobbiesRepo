@@ -1,7 +1,7 @@
 # HOBBIES REPO
 
 ## WELCOME TO MY HOBBIES REPO
-This repository store **NOT** useful codes..  
+**UNUSEFUL** codes are stored in this repository.
 
 ### WAVES  
 ----------------------------- 
