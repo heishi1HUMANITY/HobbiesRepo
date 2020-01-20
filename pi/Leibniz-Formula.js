@@ -9,4 +9,4 @@ const leibniz_formula = () => {
     }
 };
 
-leibniz_formula()
+leibniz_formula();
