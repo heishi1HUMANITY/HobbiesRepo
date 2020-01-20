@@ -21,3 +21,10 @@ wave are inspired by [Adobe XD - Water animation in 6 minutes.](https://youtu.be
  This code find the prime number between 2 and argument.
 * [Sieve Of Sundaram](./primeNumber/sieve-of-sundaram.js "Sieve Of Sundaram")  
  This code find the prime number between 2 and (2argument+1).
+
+### MATH
+-----------------------------
+* [GCD](./math/gcd.js "GCD")  
+ This function is based on Euclidean Alogorithm.
+* [Convert Dec to Bin](./math/convert-dec-to-bin.js "Convert Dec to Bin")  
+ This function return 8 digit binary number from decimal.
