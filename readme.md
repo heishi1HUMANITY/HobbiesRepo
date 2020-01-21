@@ -50,3 +50,8 @@ wave are inspired by [Adobe XD - Water animation in 6 minutes.](https://youtu.be
  X = number of points are x<sup>2</sup> + y<sup>2</sup> &le; 1  
  N = number of total  
  &pi; &asymp; 4X / N  
+
+### Math.max() VS Array.prototype.reduce()  
+-------------------------------
+ [Math.max() VS Array.prototype.reduce()](./Math.max()-vs-Array.prototype.reduce().ts "Math.max() VS Array.prototype.reduce()")  
+    If you want to find out the largest number from array, you can use `Math.max(...array)`. However this function can't work if the array is so big. If you need to find out the largest number from big array, you should use `array.reduce((a,b) => (a > b) ? a : b)`. This file compare the speed of `Math.max()` with the speed of `Array.prototype.reduce()`.
