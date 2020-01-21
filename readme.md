@@ -40,8 +40,8 @@ wave are inspired by [Adobe XD - Water animation in 6 minutes.](https://youtu.be
    * repeat   
     a<sub>n+1</sub> = (a<sub>n</sub> + b<sub>n</sub>) / 2  
     b<sub>n+1</sub> = &radic;(a<sub>n</sub>b<sub>n</sub>)  
-    p<sub>n+1</sub> = t<sub>n</sub> - p<sub>n</sub>(a<sub>n</sub> - a<sub>n+1</sub>)<sup>2</sup>  
-    t<sub>n+1</sub> = 2p<sub>n</sub>  
+    t<sub>n+1</sub> = t<sub>n</sub> - p<sub>n</sub>(a<sub>n</sub> - a<sub>n+1</sub>)<sup>2</sup>  
+    p<sub>n+1</sub> = 2p<sub>n</sub>  
    * pi is  
     &pi; &asymp; (a<sub>n+1</sub> + b<sub>n+1</sub>)<sup>2</sup> / 4t<sub>n+1</sub>
  * [Leibniz Formula](./pi/Leibniz-Formula.js "Leibniz Formula")  
