@@ -15,23 +15,23 @@ wave are inspired by [Adobe XD - Water animation in 6 minutes.](https://youtu.be
 
 ### PRIME NUMBER
 -----------------------------
-* [Trial Division](./primeNumber/trial-division.js "Trial Division")  
+* [Trial Division](./primeNumber/trial-division.ts "Trial Division")  
  This code check the whether an argument is prime or not.
-* [Sieve Of Eratosthenes](./primeNumber/sieve-of-eratosthenes.js "Sieve Of Eratosthenes")  
+* [Sieve Of Eratosthenes](./primeNumber/sieve-of-eratosthenes.ts "Sieve Of Eratosthenes")  
  This code find the prime number between 2 and argument.
-* [Sieve Of Sundaram](./primeNumber/sieve-of-sundaram.js "Sieve Of Sundaram")  
- This code find the prime number between 2 and (2argument+1).
+* [Sieve Of Sundaram](./primeNumber/sieve-of-sundaram.ts "Sieve Of Sundaram")  
+ This code find the prime number between 2 and (2argument + 2).
 
 ### MATH  
 -----------------------------
-* [GCD](./math/gcd.js "GCD")  
+* [GCD](./math/gcd.ts "GCD")  
  This function is based on Euclidean Alogorithm.
-* [Convert Dec to Bin](./math/convert-dec-to-bin.js "Convert Dec to Bin")  
+* [Convert Dec to Bin](./math/convert-dec-to-bin.ts "Convert Dec to Bin")  
  This function return 8 digit binary number from decimal.
 
- ### PI
+### PI
 ----------------------------
- * [Gauss Legendre Algorithm](./pi/Gauss-Legendre-Algorithm.js "Gauss Legendre Algorithm")  
+ * [Gauss Legendre Algorithm](./pi/Gauss-Legendre-Algorithm.ts "Gauss Legendre Algorithm")  
    * initial value  
     a<sub>0</sub> = 1  
     b<sub>0</sub> = 1 / &radic;2  
@@ -44,9 +44,9 @@ wave are inspired by [Adobe XD - Water animation in 6 minutes.](https://youtu.be
     p<sub>n+1</sub> = 2p<sub>n</sub>  
    * pi is  
     &pi; &asymp; (a<sub>n+1</sub> + b<sub>n+1</sub>)<sup>2</sup> / 4t<sub>n+1</sub>
- * [Leibniz Formula](./pi/Leibniz-Formula.js "Leibniz Formula")  
+ * [Leibniz Formula](./pi/Leibniz-Formula.ts "Leibniz Formula")  
  &sum;[n=0&rarr;&infin;] (-1)<sup>n</sup> / 2n + 1 = &pi; / 4  
- * [Monte Carlo Method](./pi/Monte-Carlo-method.js "Monte Carlo method")  
+ * [Monte Carlo Method](./pi/Monte-Carlo-method.ts "Monte Carlo method")  
  X = number of points are x<sup>2</sup> + y<sup>2</sup> &le; 1  
  N = number of total  
  &pi; &asymp; 4X / N  
