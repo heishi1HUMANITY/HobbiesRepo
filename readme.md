@@ -22,7 +22,7 @@ wave are inspired by [Adobe XD - Water animation in 6 minutes.](https://youtu.be
 * [Sieve Of Sundaram](./primeNumber/sieve-of-sundaram.js "Sieve Of Sundaram")  
  This code find the prime number between 2 and (2argument+1).
 
-### MATH
+### MATH  
 -----------------------------
 * [GCD](./math/gcd.js "GCD")  
  This function is based on Euclidean Alogorithm.
@@ -30,7 +30,7 @@ wave are inspired by [Adobe XD - Water animation in 6 minutes.](https://youtu.be
  This function return 8 digit binary number from decimal.
 
  ### PI
- ----------------------------
+----------------------------
  * [Gauss Legendre Algorithm](./pi/Gauss-Legendre-Algorithm.js "Gauss Legendre Algorithm")  
    * initial value  
     a<sub>0</sub> = 1  
