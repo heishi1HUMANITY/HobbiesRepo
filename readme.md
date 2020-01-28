@@ -30,6 +30,9 @@ wave are inspired by [Adobe XD - Water animation in 6 minutes.](https://youtu.be
  This function return 8 digit binary number from decimal.
 * [Determinant](./math/determinant.ts "Determinant")  
  This function solve the determinant and return the answer.
+* [Newton's Method](./math/newton's-method.ts)  
+ This function return &radic;(argument).  
+ tips: Newton's method can find x which f(x) = 0.
 
 ### PI
 ----------------------------
