@@ -1,4 +1,4 @@
-let newtonRoot = (x:number) => {
+let newtonSqrt = (x:number) => {
     let xn:number = 1.0;
     while(true){
         xn = xn - ((xn * xn - x) / (2 * xn));
@@ -7,4 +7,4 @@ let newtonRoot = (x:number) => {
     return xn;
 };
 
-console.log(newtonRoot(2));
+console.log(newtonSqrt(2));
