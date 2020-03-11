@@ -25,7 +25,7 @@ wave are inspired by [Adobe XD - Water animation in 6 minutes.](https://youtu.be
 ### MATH  
 -----------------------------
 * [GCD](./math/gcd.ts "GCD")  
- This function is based on Euclidean Alogorithm.
+ This function is based on Euclidean Algorithm.
 * [Convert Dec to Bin](./math/convert-dec-to-bin.ts "Convert Dec to Bin")  
  This function return 8 digit binary number from decimal.
 * [Determinant](./math/determinant.ts "Determinant")  
