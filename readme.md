@@ -25,11 +25,14 @@ wave are inspired by [Adobe XD - Water animation in 6 minutes.](https://youtu.be
 ### MATH  
 -----------------------------
 * [GCD](./math/gcd.ts "GCD")  
- This function is based on Euclidean Alogorithm.
+ This function is based on Euclidean Algorithm.
 * [Convert Dec to Bin](./math/convert-dec-to-bin.ts "Convert Dec to Bin")  
  This function return 8 digit binary number from decimal.
 * [Determinant](./math/determinant.ts "Determinant")  
  This function solve the determinant and return the answer.
+* [Newton's Method](./math/newton's-method.ts)  
+ This function return &radic;(argument).  
+ tips: Newton's method can find x which f(x) = 0.
 * [Statistics](./math/statistics.py "Statistics")  
  This file are written some basic statistics function.(mean/deviation/variance/stdev)
 

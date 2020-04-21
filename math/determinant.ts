@@ -1,26 +1,6 @@
 const det = (array:number[][]) => {
-    const det2 = (array:number[][]) => array[0][0] * array[1][1] - (array[0][1] * array[1][0]);
-    const det3 = (array:number[][]) => {
-        let ans:number = 0;
-        let j:number = 1, k:number = 2;
-        for(let i = 0; i <= 2; i++){
-            ans += array[0][i] * array[1][j] * array[2][k];
-            j++;
-            k++;
-            if(j == 3) j = 0;
-            if(k == 3) k = 0;
-        }
-        j = 2, k = 1;
-        for(let i = 0; i <= 2; i++){
-            ans += -(array[0][i] * array[1][j] * array[2][k]);
-            j++;
-            k++;
-            if(j == 3) j = 0;
-            if(k == 3) k = 0;
-        }
-        return ans;
-    };
-    const detover = (array:number[][]) => {
+    const sarrus = (array:number[][]) => array[0][0] * array[1][1] - (array[0][1] * array[1][0]);
+    const expansion = (array:number[][]) => {
         let length:number = array.length;
         let ans:number = 0;
         for(let i = 0; i < length; i++){
@@ -33,15 +13,13 @@ const det = (array:number[][]) => {
         }
         return ans;
     };
-    if(array.length == 2) return det2(array);
-    else if(array.length == 3) return det3(array);
-    else return detover(array);
+    if(array.length == 2) return sarrus(array);
+    else return expansion(array);
 };
 console.log(
     det(
-        [[2,0,1,-1],
-         [3,-3,0,-2],
-         [-2,3,2,3],
-         [2,-6,2,-4]]
+        [[1,2,3],
+         [4,5,6],
+         [7,8,9]]
     )
 );
