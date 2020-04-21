@@ -30,6 +30,8 @@ wave are inspired by [Adobe XD - Water animation in 6 minutes.](https://youtu.be
  This function return 8 digit binary number from decimal.
 * [Determinant](./math/determinant.ts "Determinant")  
  This function solve the determinant and return the answer.
+* [Statistics](./math/statistics.py "Statistics")  
+ This file are written some basic statistics function.(mean/deviation/variance/stdev)
 
 ### PI
 ----------------------------
