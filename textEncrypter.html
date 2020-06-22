@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>text encrypter</title>
+    </head>
+    <body>
+        <textarea name="plaintext" cols="30" rows="10" id="plaintext" placeholder="plaintext"></textarea>
+        <textarea name="ciphertext" cols="30" rows="10" id="ciphertext" placeholder="ciphertext"></textarea>
+        <textarea name="key" cols="30" rows="10" id="key" placeholder="key"></textarea>
+        <input type="button" value="encrypt" id="encrypt">
+        <input type="button" value="decrypt" id="decrypt">
+        <script src="./Vernam.js"></script>
+        <script>
+            let init = () => {
+                const encButton = document.querySelector('#encrypt');
+                const decButton = document.querySelector('#decrypt');
+                const plaintext = document.querySelector('#plaintext');
+                const ciphertext = document.querySelector('#ciphertext');
+                const keytext = document.querySelector('#key');
+
+                encButton.addEventListener('click', () => {
+                    let p = plaintext.value;
+                    let res = encrypt(p);
+                    ciphertext.value = res[0];
+                    console.log(Array.from(res[0]))
+                    let key = res[1].join(',');
+                    keytext.value = key;
+                });
+
+                decButton.addEventListener('click', () => {
+                    let c = ciphertext.value;
+                    let k = (keytext.value).split(',');
+                    let res = decrypt(c, k);
+                    plaintext.value = res;
+
+                });
+            };
+            init();
+        </script>
+    </body>
+</html>
