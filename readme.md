@@ -62,3 +62,8 @@ wave are inspired by [Adobe XD - Water animation in 6 minutes.](https://youtu.be
 -------------------------------
  [Math.max() VS Array.prototype.reduce()](./Math.max()-vs-Array.prototype.reduce().ts "Math.max() VS Array.prototype.reduce()")  
     If you want to find out the largest number from array, you can use `Math.max(...array)`. However this function can't work if the array is so big. If you need to find out the largest number from big array, you should use `array.reduce((a,b) => (a > b) ? a : b)`. This file compare the speed of `Math.max()` with the speed of `Array.prototype.reduce()`.
+
+### Text Encrypter(TEST)
+-------------------------------
+link is here  
+[Text Encrypter](./textEncrypter.html "Text Encrypter")
