@@ -1,8 +1,3 @@
-const checker = (str, enc, key) => {
-    if(str == decrypt(enc, key)) return true;
-    else return false;
-};
-
 const encrypt = (str) => {
     let enc = new TextEncoder();
     let dec = new TextDecoder();
@@ -14,49 +9,45 @@ const encrypt = (str) => {
 
     let key = [];
     let encryptedStringArrayBin = [];
-    let encryptedString;
-    while(true){
-        for(let i = 0; i < stringArrayBin.length; i++){
-            let str = Array.from(stringArrayBin[i])
-            let k;
-            let tmp
-            let flag;
-            do{
-                flag = false;
-                let rand = Math.floor(Math.random() * 4294967296);
-                k = Array.from(('00000000000000000000000000000000' + rand.toString(2)).slice(-32))
-                tmp = [];
-                for(let j = 0; j < 32; j++){
-                    tmp.push(parseInt(str[j]) ^ parseInt(k[j]))
+    for(let i = 0; i < stringArrayBin.length; i++){
+        let str = Array.from(stringArrayBin[i]);
+        let k;
+        let tmp;
+        let flag = true;
+        while(flag){
+            flag = false;
+            let rand = Math.floor(Math.random() * 4294967296);
+            k = Array.from(('00000000000000000000000000000000' + rand.toString(2)).slice(-32));
+            tmp = [];
+            for(let j = 0; j < 32; j++){
+                tmp.push(parseInt(str[j]) ^ parseInt(k[j]));
+            }
+            tmp = tmp.join('');
+            for(let d of debugList){
+                if(dec.decode(new Uint8Array([parseInt(tmp, 2)])) == dec.decode(new Uint8Array(d))){
+                    flag = true;
+                    break;
                 }
-                for(let d of debugList){
-                    if(dec.decode(new Uint8Array([parseInt(tmp.join(''), 2)])) == dec.decode(new Uint8Array(d))){
-                        flag = true;
-                        break;
-                    }
-                }
-            }while(flag);
-            console.log(tmp.join(''));
-            key.push(k.join(''))
-            encryptedStringArrayBin.push(tmp.join(''));
+            }
         }
-    
-        let encryptedStringArrayUint8 = [];
-        for(let s of encryptedStringArrayBin){
-            encryptedStringArrayUint8.push(parseInt(s, 2));
-        }
-        encryptedStringArrayUint8 = new Uint8Array(encryptedStringArrayUint8)
-        
-        encryptedString = dec.decode(encryptedStringArrayUint8);
-        if(checker(str, encryptedString, key)) break;
+        key.push(k.join(''));
+        encryptedStringArrayBin.push(tmp);
     }
+    
+    let encryptedStringArrayUint8 = [];
+    for(let s of encryptedStringArrayBin){
+        encryptedStringArrayUint8.push(parseInt(s, 2));
+    }
+    encryptedStringArrayUint8 = new Uint8Array(encryptedStringArrayUint8);
+    
+    let encryptedString = dec.decode(encryptedStringArrayUint8);
 
-    return [encryptedString, key]
+    return [encryptedString, key];
 };
 
 const decrypt = (encryptedString, key) => {
-    console.log(encryptedString);
     let enc = new TextEncoder();
+    let dec = new TextDecoder();
     let encryptedStringArrayUint8 = enc.encode(encryptedString);
     let encryptedStringArrayBin = [];
     for(let s of encryptedStringArrayUint8){
@@ -69,7 +60,7 @@ const decrypt = (encryptedString, key) => {
         let k = Array.from(key[i]);
         let tmp = [];
         for(let j = 0; j < 32; j++){
-            tmp.push(parseInt(str[j]) ^ parseInt(k[j]))
+            tmp.push(parseInt(str[j]) ^ parseInt(k[j]));
         }
         decryptedStringArrayBin.push(tmp.join(''));
     }
@@ -80,8 +71,7 @@ const decrypt = (encryptedString, key) => {
     }
     decryptedStringArrayUint8 = new Uint8Array(decryptedStringArrayUint8);
 
-    let dec = new TextDecoder();
-    let decryptedString = dec.decode(decryptedStringArrayUint8)
+    let decryptedString = dec.decode(decryptedStringArrayUint8);
 
     return decryptedString;
 };

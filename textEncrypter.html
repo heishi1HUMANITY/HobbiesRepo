@@ -23,17 +23,21 @@
                     let p = plaintext.value;
                     let res = encrypt(p);
                     ciphertext.value = res[0];
-                    console.log(Array.from(res[0]))
-                    let key = res[1].join(',');
-                    keytext.value = key;
+                    let key = res[1];
+                    for(let i = 0; i < key.length; i++){
+                        key[i] = parseInt(key[i], 2).toString(16)
+                    }
+                    keytext.value = key.join(',');
                 });
 
                 decButton.addEventListener('click', () => {
                     let c = ciphertext.value;
-                    let k = (keytext.value).split(',');
-                    let res = decrypt(c, k);
+                    let key = keytext.value.split(',');
+                    for(let i = 0; i < key.length; i++){
+                        key[i] = ('00000000000000000000000000000000' + parseInt(key[i], 16).toString(2)).slice(-32);
+                    }
+                    let res = decrypt(c, key);
                     plaintext.value = res;
-
                 });
             };
             init();
