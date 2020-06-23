@@ -34,7 +34,7 @@
                     let c = ciphertext.value;
                     let key = keytext.value.split(',');
                     for(let i = 0; i < key.length; i++){
-                        key[i] = ('00000000000000000000000000000000' + parseInt(key[i], 16).toString(2)).slice(-32);
+                        key[i] = ('00000000' + parseInt(key[i], 16).toString(2)).slice(-8);
                     }
                     let res = decrypt(c, key);
                     plaintext.value = res;

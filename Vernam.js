@@ -4,7 +4,7 @@ const encrypt = (str) => {
     let stringArrayUint8 = enc.encode(str);
     let stringArrayBin = [];
     for(let s of stringArrayUint8){
-        stringArrayBin.push(('00000000000000000000000000000000' + s.toString(2)).slice(-32));
+        stringArrayBin.push(('00000000' + s.toString(2)).slice(-8));
     }
 
     let key = [];
@@ -16,10 +16,10 @@ const encrypt = (str) => {
         let flag = true;
         while(flag){
             flag = false;
-            let rand = Math.floor(Math.random() * 4294967296);
-            k = Array.from(('00000000000000000000000000000000' + rand.toString(2)).slice(-32));
+            let rand = Math.floor(Math.random() * 255);
+            k = Array.from(('00000000' + rand.toString(2)).slice(-8));
             tmp = [];
-            for(let j = 0; j < 32; j++){
+            for(let j = 0; j < 8; j++){
                 tmp.push(parseInt(str[j]) ^ parseInt(k[j]));
             }
             tmp = tmp.join('');
@@ -51,7 +51,7 @@ const decrypt = (encryptedString, key) => {
     let encryptedStringArrayUint8 = enc.encode(encryptedString);
     let encryptedStringArrayBin = [];
     for(let s of encryptedStringArrayUint8){
-        encryptedStringArrayBin.push(('00000000000000000000000000000000' + s.toString(2)).slice(-32));
+        encryptedStringArrayBin.push(('00000000' + s.toString(2)).slice(-8));
     }
 
     let decryptedStringArrayBin = [];
@@ -59,7 +59,7 @@ const decrypt = (encryptedString, key) => {
         let str = Array.from(encryptedStringArrayBin[i]);
         let k = Array.from(key[i]);
         let tmp = [];
-        for(let j = 0; j < 32; j++){
+        for(let j = 0; j < 8; j++){
             tmp.push(parseInt(str[j]) ^ parseInt(k[j]));
         }
         decryptedStringArrayBin.push(tmp.join(''));
