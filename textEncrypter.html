@@ -8,9 +8,22 @@
         <textarea name="plaintext" cols="30" rows="10" id="plaintext" placeholder="plaintext"></textarea>
         <textarea name="ciphertext" cols="30" rows="10" id="ciphertext" placeholder="ciphertext"></textarea>
         <textarea name="key" cols="30" rows="10" id="key" placeholder="key"></textarea>
+        <textarea name="nonce" cols="30" rows="10" id="nonce" placeholder="uonce"></textarea>
         <input type="button" value="encrypt" id="encrypt">
         <input type="button" value="decrypt" id="decrypt">
+        <select name="algorithm" id="algorithm">
+            <option value="salsa20" label="salsa20"></option>
+            <option value="chacha20" label="chacha20"></option>
+            <option value="old-type" label="old-type"></option>
+        </select>
+        <br>
+        <textarea name="text" cols="30" rows="10" id="text" placeholder="textencoder"></textarea>
+        <input type="button" value="encode" id="encode">
+        <input type="button" value="decode" id="decode">
+        
         <script src="./Vernam.js"></script>
+        <script src="./salsa20.js"></script>
+        <script src="./chacha20.js"></script>
         <script>
             let init = () => {
                 const encButton = document.querySelector('#encrypt');
@@ -18,27 +31,187 @@
                 const plaintext = document.querySelector('#plaintext');
                 const ciphertext = document.querySelector('#ciphertext');
                 const keytext = document.querySelector('#key');
+                const noncetext = document.querySelector('#nonce')
+                const algorithm = document.querySelector('#algorithm');
+                const text = document.querySelector('#text');
+                const encode = document.querySelector('#encode');
+                const decode = document.querySelector('#decode');
 
                 encButton.addEventListener('click', () => {
-                    let p = plaintext.value;
-                    let res = encrypt(p);
-                    ciphertext.value = res[0];
-                    let key = res[1];
-                    for(let i = 0; i < key.length; i++){
-                        key[i] = parseInt(key[i], 2).toString(16)
+                    let p, key, nonce, res;
+                    switch(algorithm.value){
+                        case 'old-type':
+                            p = plaintext.value;
+                            res = encrypt(p);
+                            ciphertext.value = res[0];
+                            key = res[1];
+                            for(let i = 0; i < key.length; i++){
+                                key[i] = parseInt(key[i], 2).toString(16)
+                            }
+                            keytext.value = key.join(',');
+                            noncetext.value = '';
+                            break;
+                        case 'salsa20':
+                            p = plaintext.value.split(',');
+                            for(let i = 0; i < p.length; i++){
+                                p[i] = parseInt(p[i], 16);
+                            }
+                            p = new Uint8Array(p);
+                            key = new Uint32Array(8);
+                            for(let j = 0; j < 8; j++){
+                                let tmp = [];
+                                for(let k = 0; k < 32; k++){
+                                    tmp.push((Math.random() >= 0.5) ? 1 : 0);
+                                }
+                                key[j] = parseInt(tmp.join(''), 2);
+                            }
+                            nonce = new Uint32Array(2);
+                            for(let j = 0; j < 2; j++){
+                                let tmp = [];
+                                for(let k = 0; k < 32; k++){
+                                    tmp.push((Math.random() >= 0.5) ? 1 : 0);
+                                }
+                                nonce[j] = parseInt(tmp.join(''), 2);
+                            }
+                            res = salsa20_encrypt(key, 1, nonce, p);
+                            key = Array.from(key);
+                            nonce = Array.from(nonce);
+                            for(let i = 0; i < 8; i++){
+                                key[i] = key[i].toString(16);
+                                if(i < 2){
+                                    nonce[i] = nonce[i].toString(16);
+                                }
+                            }
+                            res = Array.from(res);
+                            for(let i = 0; i < res.length; i++){
+                                res[i] = res[i].toString(16);
+                            }
+                            keytext.value = key.join(',');
+                            noncetext.value = nonce.join(',');
+                            ciphertext.value = res.join(',');
+                            break;
+                        case 'chacha20':
+                            p = plaintext.value.split(',');
+                            for(let i = 0; i < p.length; i++){
+                                p[i] = parseInt(p[i], 16);
+                            }
+                            p = new Uint8Array(p);
+                            key = new Uint32Array(8);
+                            for(let j = 0; j < 8; j++){
+                                let tmp = [];
+                                for(let k = 0; k < 32; k++){
+                                    tmp.push((Math.random() >= 0.5) ? 1 : 0);
+                                }
+                                key[j] = parseInt(tmp.join(''), 2);
+                            }
+                            nonce = new Uint32Array(2);
+                            for(let j = 0; j < 2; j++){
+                                let tmp = [];
+                                for(let k = 0; k < 32; k++){
+                                    tmp.push((Math.random() >= 0.5) ? 1 : 0);
+                                }
+                                nonce[j] = parseInt(tmp.join(''), 2);
+                            }
+                            res = chacha20_encrypt(key, 1, nonce, p);
+                            key = Array.from(key);
+                            nonce = Array.from(nonce);
+                            for(let i = 0; i < 8; i++){
+                                key[i] = key[i].toString(16);
+                                if(i < 2){
+                                    nonce[i] = nonce[i].toString(16);
+                                }
+                            }
+                            res = Array.from(res);
+                            for(let i = 0; i < res.length; i++){
+                                res[i] = res[i].toString(16);
+                            }
+                            keytext.value = key.join(',');
+                            noncetext.value = nonce.join(',');
+                            ciphertext.value = res.join(',');
+                            break;
                     }
-                    keytext.value = key.join(',');
                 });
 
                 decButton.addEventListener('click', () => {
-                    let c = ciphertext.value;
-                    let key = keytext.value.split(',');
-                    for(let i = 0; i < key.length; i++){
-                        key[i] = ('00000000' + parseInt(key[i], 16).toString(2)).slice(-8);
+                    let c, key, nonce, res;
+                    switch(algorithm.value){
+                        case 'old-type':
+                            c = ciphertext.value;
+                            key = keytext.value.split(',');
+                            for(let i = 0; i < key.length; i++){
+                                key[i] = ('00000000' + parseInt(key[i], 16).toString(2)).slice(-8);
+                            }
+                            res = decrypt(c, key);
+                            plaintext.value = res;
+                            break;
+                        case 'salsa20':
+                            c = ciphertext.value.split(',');
+                            for(let i = 0; i < c.length; i++){
+                                c[i] = parseInt(c[i], 16);
+                            }
+                            c = new Uint8Array(c);
+                            key = keytext.value.split(',');
+                            for(let i = 0; i < key.length; i++){
+                                key[i] = parseInt(key[i], 16);
+                            }
+                            key = new Uint32Array(key);
+                            nonce = noncetext.value.split(',');
+                            for(let i = 0; i < nonce.length; i++){
+                                nonce[i] = parseInt(nonce[i], 16);
+                            }
+                            nonce = new Uint32Array(nonce);
+                            res = salsa20_encrypt(key, 1, nonce, c);
+                            res = Array.from(res);
+                            for(let i = 0; i < res.length; i++){
+                                res[i] = res[i].toString(16);
+                            }
+                            plaintext.value = res.join(',');
+                            break;
+                        case 'chacha20':
+                            c = ciphertext.value.split(',');
+                            for(let i = 0; i < c.length; i++){
+                                c[i] = parseInt(c[i], 16);
+                            }
+                            c = new Uint8Array(c);
+                            key = keytext.value.split(',');
+                            for(let i = 0; i < key.length; i++){
+                                key[i] = parseInt(key[i], 16);
+                            }
+                            key = new Uint32Array(key);
+                            nonce = noncetext.value.split(',');
+                            for(let i = 0; i < nonce.length; i++){
+                                nonce[i] = parseInt(nonce[i], 16);
+                            }
+                            nonce = new Uint32Array(nonce);
+                            res = chacha20_encrypt(key, 1, nonce, c);
+                            res = Array.from(res);
+                            for(let i = 0; i < res.length; i++){
+                                res[i] = res[i].toString(16);
+                            }
+                            plaintext.value = res.join(',');
+                            break;
                     }
-                    let res = decrypt(c, key);
-                    plaintext.value = res;
                 });
+
+                encode.addEventListener('click', () => {
+                    let enc = new TextEncoder();
+                    let res = Array.from(enc.encode(text.value));
+                    for(let i = 0; i < res.length; i++){
+                        res[i] = res[i].toString(16);
+                    }
+                    text.value = res.join(',');
+                });
+
+                decode.addEventListener('click', () => {
+                    let dec = new TextDecoder();
+                    let p = text.value.split(',');
+                    for(let i = 0; i < p.length; i++){
+                        p[i] = parseInt(p[i], 16);
+                    }
+                    p = new Uint8Array(p);
+                    let res = dec.decode(p);
+                    text.value = res;
+                })
             };
             init();
         </script>

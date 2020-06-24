@@ -66,4 +66,7 @@ wave are inspired by [Adobe XD - Water animation in 6 minutes.](https://youtu.be
 ### Text Encrypter(TEST)
 -------------------------------
 link is here  
-[Text Encrypter](./textEncrypter.html "Text Encrypter")
+[Text Encrypter](./textEncrypter.html "Text Encrypter")  
+Now, Salsa20 / ChaCha20 is available
+* [Salsa20](./salsa20.js "Salsa20")
+* [ChaCha20](./chacha20.js "ChaCha20")

@@ -1,4 +1,4 @@
-const QR = (state, x, y, z, w) => {
+const sQR = (state, x, y, z, w) => {
     a = state[x], b = state[y], c = state[z], d = state[w];
     b = b ^ ((a + b) & 0xffffffff); b = (b << 7) | (b >>> 7);
     c = c ^ ((b + a) & 0xffffffff); c = (c << 9) | (c >>> 9);
@@ -7,16 +7,16 @@ const QR = (state, x, y, z, w) => {
     state[x] = a, state[y] = b, state[z] = c, state[w] = d
 };
 
-const double_round = state => {
-    QR(state, 0, 4, 8, 12);
-    QR(state, 5, 9, 13, 1);
-    QR(state, 10, 14, 2, 6);
-    QR(state, 15, 3, 7, 11);
+const sdouble_round = state => {
+    sQR(state, 0, 4, 8, 12);
+    sQR(state, 5, 9, 13, 1);
+    sQR(state, 10, 14, 2, 6);
+    sQR(state, 15, 3, 7, 11);
 
-    QR(state, 0, 1, 2, 3);
-    QR(state, 5, 6, 7, 4);
-    QR(state, 10, 11, 8, 9);
-    QR(state, 15, 12, 13, 14);
+    sQR(state, 0, 1, 2, 3);
+    sQR(state, 5, 6, 7, 4);
+    sQR(state, 10, 11, 8, 9);
+    sQR(state, 15, 12, 13, 14);
 };
 
 const salsa20_block = (key, pos, nonce) => {
@@ -41,7 +41,7 @@ const salsa20_block = (key, pos, nonce) => {
     let initial_state = new Uint32Array(state);
 
     for(let i = 0; i < 10; i++){
-        double_round(state);
+        sdouble_round(state);
     }
 
     for(let i = 0; i < 16; i++){
@@ -94,64 +94,64 @@ const salsa20_encrypt = (key, pos, nonce, plaintext) => {
     return new Uint8Array(encrypted_message);
 };
 
-let enc = new TextEncoder();
-let dec = new TextDecoder();
-let string = 
-`Dramatis Personæ
-HAMLET, Prince of Denmark.
-CLAUDIUS, King of Denmark, Hamlet’s uncle.
-The GHOST of the late king, Hamlet’s father.
-GERTRUDE, the Queen, Hamlet’s mother, now wife of Claudius.
-POLONIUS, Lord Chamberlain.
-LAERTES, Son to Polonius.
-OPHELIA, Daughter to Polonius.
-HORATIO, Friend to Hamlet.
-FORTINBRAS, Prince of Norway.
-VOLTEMAND, Courtier.
-CORNELIUS, Courtier.
-ROSENCRANTZ, Courtier.
-GUILDENSTERN, Courtier.
-MARCELLUS, Officer.
-BARNARDO, Officer.
-FRANCISCO, a Soldier
-OSRIC, Courtier.
-REYNALDO, Servant to Polonius.
-Players.
-A Gentleman, Courtier.
-A Priest.
-Two Clowns, Grave-diggers.
-A Captain.
-English Ambassadors.
-Lords, Ladies, Officers, Soldiers, Sailors, Messengers, and Attendants.`;
-for(let i = 1; i <= 10; i++){
-    let key = new Uint32Array(8);
-    for(let j = 0; j < 8; j++){
-        let tmp = [];
-        for(let k = 0; k < 32; k++){
-            tmp.push((Math.random() >= 0.5) ? 1 : 0);
-        }
-        key[j] = parseInt(tmp.join(''), 2);
-    }
-    let nonce = new Uint32Array(2);
-    for(let j = 0; j < 2; j++){
-        let tmp = [];
-        for(let k = 0; k < 32; k++){
-            tmp.push((Math.random() >= 0.5) ? 1 : 0);
-        }
-        nonce[j] = parseInt(tmp.join(''), 2);
-    }
-    let string_int = enc.encode(string);
-    let encrypted = salsa20_encrypt(key, i, nonce, string_int);
-    console.log('key: ' + key + ' nonce: ' + nonce + ' pos: ' + i);
-    console.log('encrypted');
-    console.log(encrypted);
-    // console.log();
-    // console.log('enc');
-    // console.log(encrypted);
-    let decrypted = salsa20_encrypt(key, i, nonce, encrypted);
-    // console.log('dec');
-    // console.log(decrypted);
-    console.log('decode');
-    console.log(dec.decode(decrypted));
-    console.log();
-}
+// let enc = new TextEncoder();
+// let dec = new TextDecoder();
+// let string = 
+// `Dramatis Personæ
+// HAMLET, Prince of Denmark.
+// CLAUDIUS, King of Denmark, Hamlet’s uncle.
+// The GHOST of the late king, Hamlet’s father.
+// GERTRUDE, the Queen, Hamlet’s mother, now wife of Claudius.
+// POLONIUS, Lord Chamberlain.
+// LAERTES, Son to Polonius.
+// OPHELIA, Daughter to Polonius.
+// HORATIO, Friend to Hamlet.
+// FORTINBRAS, Prince of Norway.
+// VOLTEMAND, Courtier.
+// CORNELIUS, Courtier.
+// ROSENCRANTZ, Courtier.
+// GUILDENSTERN, Courtier.
+// MARCELLUS, Officer.
+// BARNARDO, Officer.
+// FRANCISCO, a Soldier
+// OSRIC, Courtier.
+// REYNALDO, Servant to Polonius.
+// Players.
+// A Gentleman, Courtier.
+// A Priest.
+// Two Clowns, Grave-diggers.
+// A Captain.
+// English Ambassadors.
+// Lords, Ladies, Officers, Soldiers, Sailors, Messengers, and Attendants.`;
+// for(let i = 1; i <= 10; i++){
+//     let key = new Uint32Array(8);
+//     for(let j = 0; j < 8; j++){
+//         let tmp = [];
+//         for(let k = 0; k < 32; k++){
+//             tmp.push((Math.random() >= 0.5) ? 1 : 0);
+//         }
+//         key[j] = parseInt(tmp.join(''), 2);
+//     }
+//     let nonce = new Uint32Array(2);
+//     for(let j = 0; j < 2; j++){
+//         let tmp = [];
+//         for(let k = 0; k < 32; k++){
+//             tmp.push((Math.random() >= 0.5) ? 1 : 0);
+//         }
+//         nonce[j] = parseInt(tmp.join(''), 2);
+//     }
+//     let string_int = enc.encode(string);
+//     let encrypted = salsa20_encrypt(key, i, nonce, string_int);
+//     console.log('key: ' + key + ' nonce: ' + nonce + ' pos: ' + i);
+//     console.log('encrypted');
+//     console.log(encrypted);
+//     // console.log();
+//     // console.log('enc');
+//     // console.log(encrypted);
+//     let decrypted = salsa20_encrypt(key, i, nonce, encrypted);
+//     // console.log('dec');
+//     // console.log(decrypted);
+//     console.log('decode');
+//     console.log(dec.decode(decrypted));
+//     console.log();
+// }
