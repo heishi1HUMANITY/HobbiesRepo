@@ -2,6 +2,7 @@
 
 ## WELCOME TO MY HOBBIES REPO
 **UNUSEFUL** codes are stored in this repository.
+https://heishi1humanity.github.io/HobbiesRepo/
 
 ### WAVES  
 ----------------------------- 
